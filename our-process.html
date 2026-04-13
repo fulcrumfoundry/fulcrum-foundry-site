@@ -1,1 +1,475 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Process - Fulcrum Foundry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0a0e1a;
+  --bg-card: rgba(12, 16, 30, 0.88);
+  --accent-1: #2d8caa;
+  --accent-2: #4eeadb;
+  --accent-3: #3ecfcf;
+  --text: #e8edf5;
+  --text-dim: rgba(232, 237, 245, 0.35);
+  --text-muted: rgba(232, 237, 245, 0.6);
+  --border: rgba(78, 234, 219, 0.08);
+  --border-hover: rgba(78, 234, 219, 0.2);
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --glow-soft: 0 0 60px rgba(45,140,170,0.08);
+  --glow-accent: 0 0 40px rgba(78,234,219,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.6; }
+
+/* AURORA */
+.aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.aurora .blob { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.08; animation: drift 24s ease-in-out infinite alternate; }
+.aurora .blob:nth-child(1) { width: 600px; height: 600px; background: var(--accent-1); top: -15%; left: -10%; animation-duration: 26s; }
+.aurora .blob:nth-child(2) { width: 500px; height: 500px; background: var(--accent-2); bottom: -12%; right: -8%; animation-duration: 30s; animation-delay: -8s; }
+.aurora .blob:nth-child(3) { width: 400px; height: 400px; background: var(--accent-3); top: 40%; left: 50%; animation-duration: 34s; animation-delay: -14s; }
+@keyframes drift { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(35px,-25px) scale(1.06); } 100% { transform: translate(-25px,18px) scale(0.94); } }
+
+/* STARS */
+canvas#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,14,26,0.82); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); z-index: 1000; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.logo img { height: 40px; width: auto; display: block; }
+.nav-right { display: flex; gap: 28px; align-items: center; }
+.nav-right a { color: var(--text-muted); text-decoration: none; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.04em; transition: color 0.25s; }
+.nav-right a:hover { color: var(--accent-2); }
+.nav-cta { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 600; padding: 8px 18px; border: 1px solid var(--accent-1); border-radius: 8px; background: transparent; color: var(--accent-2) !important; cursor: pointer; transition: all 0.25s ease; }
+.nav-cta:hover { background: var(--accent-1); color: #fff !important; box-shadow: 0 0 20px rgba(78,234,219,0.12); }
+
+/* CONTENT */
+.content { position: relative; z-index: 5; }
+
+/* ===== FULL-BLEED SECTIONS ===== */
+.section-full {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 40px;
+  position: relative;
+}
+
+/* ===== HERO ===== */
+.hero { padding-top: 64px; }
+.hero-glow { position: absolute; width: 700px; height: 700px; top: 45%; left: 50%; transform: translate(-50%,-55%); background: radial-gradient(circle, rgba(45,140,170,0.12) 0%, transparent 65%); pointer-events: none; }
+.hero h1 { font-family: var(--font-heading); font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; max-width: 700px; opacity: 0; transform: translateY(28px); animation: fadeUp 1s ease forwards; }
+.hero h1 .em { font-style: normal; color: var(--accent-2); }
+.hero .sub { font-size: clamp(0.92rem, 1.8vw, 1.1rem); color: var(--text-muted); margin-top: 24px; max-width: 500px; opacity: 0; transform: translateY(18px); animation: fadeUp 0.8s ease 0.4s forwards; line-height: 1.7; }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ===== SECTION LAYOUTS ===== */
+.section-contained { max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+.section-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; padding: 100px 40px; }
+.section-split.reverse { direction: rtl; }
+.section-split.reverse > * { direction: ltr; }
+
+/* LABELS & TITLES */
+.label { font-family: var(--font-heading); font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--accent-2); margin-bottom: 14px; }
+.title { font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 18px; }
+.desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.75; max-width: 520px; }
+
+/* CARDS */
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all 0.4s; }
+.card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: var(--glow-soft); }
+.card h4 { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
+.card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+.card .icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+
+/* GRID */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+/* TEAM */
+.team-row { display: flex; justify-content: center; gap: 60px; margin-top: 40px; }
+.team-item { text-align: center; }
+.team-item img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); transition: all 0.4s; }
+.team-item:hover img { border-color: var(--accent-2); box-shadow: 0 0 40px rgba(78,234,219,0.1); }
+.team-item h3 { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; margin-top: 16px; margin-bottom: 2px; }
+.team-item .role { font-size: 0.85rem; color: var(--accent-2); font-weight: 500; }
+
+/* PYRAMID */
+.pyramid { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.pyr-row { display: flex; align-items: center; justify-content: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 24px; transition: all 0.35s; cursor: default; }
+.pyr-row:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--glow-accent); background: rgba(20,28,50,0.9); }
+.pyr-row .l { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-2), var(--accent-1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-right: 14px; min-width: 24px; }
+.pyr-row .n { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600; }
+.w1{width:240px}.w2{width:300px}.w3{width:360px}.w4{width:420px}.w5{width:480px}
+
+/* PHASE SECTION */
+.phase-sec { border-top: 1px solid var(--border); }
+.phase-tag { display: inline-flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+.phase-tag .letter { font-family: var(--font-heading); font-size: 2.4rem; font-weight: 700; background: linear-gradient(135deg, var(--accent-2), var(--accent-1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; }
+.phase-tag .name { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+.phase-quote { font-style: italic; color: var(--text-dim); font-size: 0.95rem; margin-bottom: 32px; margin-top: 2px; }
+
+/* DELIVERABLE BADGE */
+.deliverable { display: inline-flex; align-items: center; gap: 8px; background: rgba(78,234,219,0.06); border: 1px solid rgba(78,234,219,0.15); border-radius: 10px; padding: 10px 18px; margin-top: 20px; font-size: 0.82rem; font-weight: 500; color: var(--accent-2); }
+.deliverable::before { content: '\2713'; font-weight: 700; }
+
+/* COMPARE */
+.compare-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: stretch; margin: 24px 0; }
+.compare-box { background: var(--bg-card); border-radius: 14px; padding: 24px; }
+.compare-box.old { border: 1px solid rgba(200,60,60,0.2); }
+.compare-box.new { border: 1px solid rgba(78,234,219,0.2); }
+.compare-label { font-family: var(--font-heading); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; }
+.compare-box.old .compare-label { color: #cc5555; }
+.compare-box.new .compare-label { color: var(--accent-2); }
+.compare-box p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+.compare-arrow { display: flex; align-items: center; justify-content: center; padding: 0 16px; font-size: 1.4rem; color: var(--accent-2); }
+
+/* EXAMPLE CALLOUTS */
+.example { background: var(--bg-card); border-left: 3px solid var(--accent-1); border-radius: 0 12px 12px 0; padding: 18px 22px; margin: 12px 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+.example strong { color: var(--text); font-weight: 600; }
+
+/* CTA */
+.cta-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 760px; margin: 40px auto 32px; text-align: left; }
+.cta-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: all 0.35s; }
+.cta-card:hover { transform: translateY(-3px); box-shadow: var(--glow-soft); }
+.cta-card.primary { border-color: var(--accent-1); box-shadow: var(--glow-accent); }
+.cta-card h3 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+.cta-card .price { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; margin-bottom: 16px; background: linear-gradient(135deg, var(--accent-2), var(--accent-1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.cta-card ul { list-style: none; padding: 0; }
+.cta-card li { padding: 4px 0 4px 20px; position: relative; font-size: 0.85rem; color: var(--text-muted); }
+.cta-card li::before { content: '\2713'; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; font-size: 0.78rem; }
+
+.scarcity { background: var(--bg-card); border: 1px solid var(--accent-1); border-radius: 16px; padding: 22px 28px; max-width: 760px; margin: 0 auto; font-size: 0.9rem; line-height: 1.7; color: var(--text-muted); text-align: center; }
+.scarcity strong { color: var(--accent-2); }
+
+/* FOOTER */
+footer { text-align: center; padding: 28px; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.04em; border-top: 1px solid var(--border); position: relative; z-index: 5; }
+
+/* REVEAL */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.rv.vis { opacity: 1; transform: translateY(0); }
+.rv-delay-1 { transition-delay: 0.15s; }
+.rv-delay-2 { transition-delay: 0.3s; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .section-split { grid-template-columns: 1fr; gap: 40px; }
+  .section-split.reverse { direction: ltr; }
+  .grid-3 { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .cta-cards { grid-template-columns: 1fr; }
+  .compare-row { grid-template-columns: 1fr; gap: 12px; }
+  .compare-arrow { transform: rotate(90deg); padding: 8px 0; }
+  .team-row { flex-direction: column; align-items: center; gap: 32px; }
+  .pyr-row { width: 100% !important; max-width: 340px; }
+  section, .section-contained, .section-split, .section-full { padding-left: 20px; padding-right: 20px; }
+  nav { padding: 0 16px; }
+}
+@media (max-width: 480px) {
+  .nav-right a:not(.nav-cta) { display: none; }
+  .hero h1 { font-size: 1.8rem; }
+}
+
+/* PASSWORD GATE */
+#pw-gate { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; align-items: center; justify-content: center; }
+#pw-gate .inner { text-align: center; max-width: 340px; padding: 40px; }
+#pw-gate img { height: 42px; margin-bottom: 28px; }
+#pw-gate p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 20px; }
+#pw-gate input { width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: var(--font-body); font-size: 0.92rem; outline: none; text-align: center; margin-bottom: 10px; transition: border-color 0.25s; }
+#pw-gate input:focus { border-color: var(--accent-3); }
+#pw-gate button { width: 100%; padding: 12px; border: none; border-radius: 10px; background: linear-gradient(135deg, var(--accent-1), var(--accent-3)); color: #fff; font-family: var(--font-heading); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+#pw-gate button:hover { transform: translateY(-1px); }
+#pw-error { color: #e05555; font-size: 0.78rem; margin-top: 8px; display: none; }
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="inner">
+    <img src="fulcrum-logo-web.png" alt="Fulcrum Foundry">
+    <p>Enter password to continue</p>
+    <input id="pw-input" type="password" placeholder="Password" autofocus>
+    <button onclick="checkPw()">Enter &rarr;</button>
+    <p id="pw-error">Incorrect password</p>
+  </div>
+</div>
+
+<!-- AURORA + STARS -->
+<div class="aurora"><div class="blob"></div><div class="blob"></div><div class="blob"></div></div>
+<canvas id="stars"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="https://fulcrumfoundry.com"><img src="fulcrum-logo-web.png" alt="Fulcrum Foundry" class="logo"></a>
+  <div class="nav-right">
+    <a href="#approach">Approach</a>
+    <a href="#process">Process</a>
+    <a href="#start" class="nav-cta">Get Started &rarr;</a>
+  </div>
+</nav>
+
+<div class="content" id="main-content" style="display:none;">
+
+<!-- =============================== -->
+<!-- 1. HERO - THE QUESTION -->
+<!-- =============================== -->
+<section class="section-full hero">
+  <div class="hero-glow"></div>
+  <h1>You're great at what you do.<br>You shouldn't be spending your time<br>on <span class="em">everything else.</span></h1>
+  <p class="sub">We build custom AI systems that handle the operational drag - so you can focus on the work that actually moves your business forward.</p>
+</section>
+
+<!-- =============================== -->
+<!-- 2. THE REALITY -->
+<!-- =============================== -->
+<div class="section-split rv" id="approach">
+  <div>
+    <div class="label">The Reality</div>
+    <div class="title">The operational drag is real.</div>
+    <p class="desc">Email, follow-ups, scheduling, reporting, data entry, meeting prep, document drafting - it all adds up. Not because you're bad at it. Because it's not the best use of your time.</p>
+    <p class="desc" style="margin-top:16px;">Every hour spent on operational overhead is an hour not spent on strategy, relationships, and growth.</p>
+  </div>
+  <div class="grid-2 rv rv-delay-1">
+    <div class="card"><span class="icon">📧</span><h4>Email & Follow-ups</h4><p>Hours triaging, drafting, and chasing responses that could be automated</p></div>
+    <div class="card"><span class="icon">📋</span><h4>Meetings & Notes</h4><p>Action items get captured, then lost. Follow-through depends on memory.</p></div>
+    <div class="card"><span class="icon">📊</span><h4>Reporting & Data</h4><p>14 tools, none of them talk to each other. You're the integration layer.</p></div>
+    <div class="card"><span class="icon">🔄</span><h4>Repetitive Decisions</h4><p>Same questions, same routing, same approvals - hundreds of times a year.</p></div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 3. THE APPROACH -->
+<!-- =============================== -->
+<section class="section-contained rv" style="text-align:center;">
+  <div class="label">Our Approach</div>
+  <div class="title">AI creates leverage.<br>Not magic - <span style="color:var(--accent-2)">leverage.</span></div>
+  <p class="desc" style="margin: 0 auto 50px;">We don't promise AI will replace you. It won't. Your judgment, relationships, and vision are irreplaceable. What AI does is eliminate the operational noise so you can use those skills on the things that matter.</p>
+  <div class="grid-3 rv rv-delay-1">
+    <div class="card"><span class="icon">⚡</span><h4>Speed</h4><p>Tasks that took hours happen in seconds. Follow-ups go out same-day, not next-week.</p></div>
+    <div class="card"><span class="icon">🔗</span><h4>Connection</h4><p>Your tools finally talk to each other. One source of truth instead of scattered spreadsheets.</p></div>
+    <div class="card"><span class="icon">🧠</span><h4>Context</h4><p>AI that knows your clients, your processes, your priorities - not a generic chatbot.</p></div>
+  </div>
+</section>
+
+<!-- =============================== -->
+<!-- 4. TEAM -->
+<!-- =============================== -->
+<section class="section-contained rv" id="team" style="text-align:center;">
+  <div class="label">Who We Are</div>
+  <div class="title">Built by operators, not theorists.</div>
+  <p class="desc" style="margin:0 auto 10px;">We've deployed AI systems across construction, e-commerce, and professional services. 20+ on-site meetings and 30+ hours of direct engagement with our first client alone in the first month.</p>
+  <div class="team-row rv rv-delay-1">
+    <div class="team-item">
+      <img src="jacob.png" alt="Jacob Johnson">
+      <h3>Jacob Johnson</h3>
+      <div class="role">Founder</div>
+    </div>
+    <div class="team-item">
+      <img src="ryan.jpg" alt="Ryan Crafts">
+      <h3>Ryan Crafts</h3>
+      <div class="role">Founder</div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== -->
+<!-- 5. FORGE OVERVIEW -->
+<!-- =============================== -->
+<section class="section-contained rv" id="process" style="text-align:center;">
+  <div class="label">The Process</div>
+  <div class="title">FORGE - How we build it.</div>
+  <p class="desc" style="margin:0 auto 44px;">Five phases. Each builds on the last. Context feeds data. Data feeds intelligence. Intelligence feeds automation. Automation creates leverage.</p>
+  <div class="pyramid rv rv-delay-1">
+    <div class="pyr-row w1"><span class="l">E</span><span class="n">Escape Velocity</span></div>
+    <div class="pyr-row w2"><span class="l">G</span><span class="n">Generative Automation</span></div>
+    <div class="pyr-row w3"><span class="l">R</span><span class="n">Real-Time Intelligence</span></div>
+    <div class="pyr-row w4"><span class="l">O</span><span class="n">Organized Data</span></div>
+    <div class="pyr-row w5"><span class="l">F</span><span class="n">Foundational Context</span></div>
+  </div>
+</section>
+
+<!-- =============================== -->
+<!-- 6. F - FOUNDATIONAL CONTEXT -->
+<!-- =============================== -->
+<div class="section-split phase-sec rv" id="phase-f">
+  <div>
+    <div class="phase-tag"><span class="letter">F</span><span class="name">Foundational Context</span></div>
+    <div class="phase-quote">"We learn your business before we touch it."</div>
+    <p class="desc">We embed in your operation. Shadow leadership. Map real workflows. Identify where time disappears, where decisions bottleneck, and where the highest-leverage automation opportunities live.</p>
+    <p class="desc" style="margin-top:12px;">Most AI projects fail because they're built on assumptions. We build on reality.</p>
+    <div class="deliverable">Deliverable: AI Transformation Roadmap</div>
+  </div>
+  <div class="grid-2 rv rv-delay-1">
+    <div class="card"><h4>Process Mapping</h4><p>Core workflows documented and diagrammed - with where AI agents fit within each one</p></div>
+    <div class="card"><h4>Opportunity Matrix</h4><p>Every automation opportunity ranked by ROI, effort, and business impact</p></div>
+    <div class="card"><h4>Policy Framework</h4><p>Governance for how AI operates: approval gates, escalation rules, data boundaries</p></div>
+    <div class="card"><h4>Decision Map</h4><p>Where decisions actually get made, who's involved, and what slows them down</p></div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 7. O - ORGANIZED DATA -->
+<!-- =============================== -->
+<div class="section-split reverse phase-sec rv" id="phase-o">
+  <div>
+    <div class="phase-tag"><span class="letter">O</span><span class="name">Organized Data</span></div>
+    <div class="phase-quote">"We connect the dots your tools can't."</div>
+    <p class="desc">Your CRM doesn't talk to your email. Your PM tool doesn't talk to your financials. Tribal knowledge lives in people's heads. We unify everything into a single data layer so AI can work with the full picture.</p>
+    <div class="deliverable">Deliverable: Connected Data Infrastructure</div>
+  </div>
+  <div>
+    <div class="compare-row rv rv-delay-1">
+      <div class="compare-box old">
+        <div class="compare-label">Before</div>
+        <p>14 tools, none connected. Same data entered 3 times. Meeting notes lost in inboxes. No single source of truth.</p>
+      </div>
+      <div class="compare-arrow">&rarr;</div>
+      <div class="compare-box new">
+        <div class="compare-label">After</div>
+        <p>Systems unified. Data flows automatically. Unstructured info searchable. One dashboard for the metrics that matter.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 8. R - REAL-TIME INTELLIGENCE -->
+<!-- =============================== -->
+<div class="section-split phase-sec rv" id="phase-r">
+  <div>
+    <div class="phase-tag"><span class="letter">R</span><span class="name">Real-Time Intelligence</span></div>
+    <div class="phase-quote">"AI that understands your business, not just your data."</div>
+    <p class="desc">A reasoning layer trained on your context - your clients, processes, priorities, and terminology. It doesn't just store information. It understands patterns, surfaces insights, and makes recommendations your team can act on.</p>
+    <div class="deliverable">Deliverable: Custom AI Reasoning Layer</div>
+  </div>
+  <div class="rv rv-delay-1">
+    <div class="card" style="margin-bottom:16px;">
+      <h4>Executive Assistant Agents</h4>
+      <p>One per leader. 24/7 meeting prep, email triage, calendar management, task capture, and on-demand research. Like a chief of staff that never sleeps.</p>
+    </div>
+    <div class="card">
+      <h4>Team & Divisional Agents</h4>
+      <p>Department-specific AI that understands each team's context and cross-references across divisions. Sales knows what ops committed. Ops knows what sales promised.</p>
+    </div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 9. G - GENERATIVE AUTOMATION -->
+<!-- =============================== -->
+<div class="section-split reverse phase-sec rv" id="phase-g">
+  <div>
+    <div class="phase-tag"><span class="letter">G</span><span class="name">Generative Automation</span></div>
+    <div class="phase-quote">"AI agents that think, create, and adapt."</div>
+    <p class="desc">Not "if-this-then-that" rules. These are agents that understand context, generate real output, and learn from outcomes. They draft, execute, follow up, and improve over time.</p>
+    <div class="deliverable">Deliverable: Deployed AI Workforce</div>
+  </div>
+  <div class="rv rv-delay-1">
+    <div class="compare-row" style="margin-bottom:20px;">
+      <div class="compare-box old">
+        <div class="compare-label">Rule-Based</div>
+        <p>"If email contains 'invoice', move to folder"</p>
+      </div>
+      <div class="compare-arrow">&rarr;</div>
+      <div class="compare-box new">
+        <div class="compare-label">Generative</div>
+        <p>"Read the email, understand context, draft a response, update the CRM, flag finance"</p>
+      </div>
+    </div>
+    <div class="example"><strong>Real example:</strong> We replaced a manual email-and-phone work order intake process with an automated system that routes, tracks, and follows up - structured, searchable, zero dropped balls.</div>
+    <div class="example"><strong>Real example:</strong> Built a custom CRM around how the client actually operates - not a repurposed off-the-shelf tool. Designed collaboratively with their VP of BD.</div>
+  </div>
+</div>
+
+<!-- =============================== -->
+<!-- 10. E - ESCAPE VELOCITY -->
+<!-- =============================== -->
+<section class="section-contained phase-sec rv" id="phase-e" style="text-align:center;">
+  <div class="phase-tag" style="justify-content:center;"><span class="letter">E</span><span class="name">Escape Velocity</span></div>
+  <div class="phase-quote">"More time on what matters. Less on everything else."</div>
+  <p class="desc" style="margin: 0 auto 36px;">Your AI system is live. Your team is trained. The operational drag that used to eat your week is handled. You have the bandwidth to focus on strategy, relationships, and growth.</p>
+  <div class="grid-3 rv rv-delay-1">
+    <div class="card"><span class="icon">🌅</span><h4>Clear Mornings</h4><p>Start with an AI-generated brief of what needs your attention - not 200 unread emails</p></div>
+    <div class="card"><span class="icon">📈</span><h4>Nothing Drops</h4><p>Follow-ups happen automatically. Leads get touched. Commitments get tracked.</p></div>
+    <div class="card"><span class="icon">🤝</span><h4>Team Amplified</h4><p>Your people collaborate with AI agents naturally - like any other team member</p></div>
+    <div class="card"><span class="icon">📊</span><h4>Visibility</h4><p>One dashboard instead of 14 tools. Real-time insight into what matters.</p></div>
+    <div class="card"><span class="icon">🎯</span><h4>Focus</h4><p>Your time goes to the work only you can do - strategy, vision, relationships</p></div>
+    <div class="card"><span class="icon">⚡</span><h4>Compounding</h4><p>The system learns and improves. Month 6 is dramatically better than month 1.</p></div>
+  </div>
+</section>
+
+<!-- =============================== -->
+<!-- 11. CTA -->
+<!-- =============================== -->
+<section class="section-contained rv" id="start" style="text-align:center; border-top: 1px solid var(--border);">
+  <div class="label">Next Steps</div>
+  <div class="title">Ready to explore this?</div>
+  <p class="desc" style="margin: 0 auto 10px;">Two paths. Both start with understanding your business first.</p>
+
+  <div class="cta-cards rv rv-delay-1">
+    <div class="cta-card primary">
+      <h3>The FORGE Blueprint</h3>
+      <div class="price">$5,000</div>
+      <ul>
+        <li>3-day on-site AI audit</li>
+        <li>Covers travel and time</li>
+        <li>Full AI Transformation Roadmap</li>
+        <li>Rolls into implementation if we move forward</li>
+      </ul>
+    </div>
+    <div class="cta-card">
+      <h3>Full FORGE Implementation</h3>
+      <div class="price">Custom</div>
+      <ul>
+        <li>8-12 week sprint (phases O through E)</li>
+        <li>Scoped based on audit findings</li>
+        <li>Deployed AI agents + team training</li>
+        <li>90 days optimization + monthly check-ins</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scarcity rv rv-delay-2">
+    We're bringing on <strong>3-5 new partners starting mid-April</strong>, then moving to a waitlist. We cap our client count so we can deliver exceptional work - <strong>Q2 spots are limited.</strong>
+  </div>
+</section>
+
+</div><!-- /content -->
+
+<footer>&copy; 2026 Fulcrum Foundry</footer>
+
+<script>
+/* PASSWORD */
+function checkPw(){
+  if(document.getElementById('pw-input').value==='fulcrum'){
+    document.getElementById('pw-gate').style.display='none';
+    document.getElementById('main-content').style.display='';
+    document.body.style.overflow='';
+  } else {
+    document.getElementById('pw-error').style.display='block';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
+
+/* STARS */
+(function(){
+  var c=document.getElementById('stars'),x=c.getContext('2d'),s=[];
+  function init(){c.width=innerWidth;c.height=innerHeight;s=[];for(var i=0;i<100;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1+0.3,a:Math.random()*0.4+0.08,sp:Math.random()*0.0006+0.0002,ph:Math.random()*6.28});}
+  function draw(t){x.clearRect(0,0,c.width,c.height);s.forEach(function(p){var f=Math.sin(t*p.sp*1000+p.ph)*0.15+0.85;x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fillStyle='rgba(78,234,219,'+(p.a*f)+')';x.fill();});requestAnimationFrame(draw);}
+  init();addEventListener('resize',init);requestAnimationFrame(draw);
+})();
+
+/* SCROLL REVEAL */
+var ro=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:0.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){ro.observe(el);});
+</script>
+</body>
+</html>
